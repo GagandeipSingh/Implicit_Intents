@@ -9,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import java.util.regex.Pattern
 
 class MainActivity : AppCompatActivity() {
     private lateinit var email : EditText
@@ -44,9 +45,7 @@ class MainActivity : AppCompatActivity() {
                     putExtra(Intent.EXTRA_SUBJECT, subject.text.toString())
                     putExtra(Intent.EXTRA_TEXT, emailbody.text.toString())
                 }
-                if (emailIntent.resolveActivity(packageManager) != null) {
                     startActivity(emailIntent)
-                }
             }
         }
 
@@ -56,18 +55,26 @@ class MainActivity : AppCompatActivity() {
                     data = Uri.parse("smsto:${number.text.toString().trim()}")
                     putExtra("sms_body", smsbody.text.toString())
                 }
-                if (smsIntent.resolveActivity(packageManager) != null) {
                     startActivity(smsIntent)
-                }
             }
 
         }
     }
 
-    private fun validateEmail(emailText: String) :Boolean{
-        val emailRegex = "^[A-Za-z](.*)(@)(.+)(\\.)(.+)"
-        return emailText.matches(emailRegex.toRegex())
+
+    private fun validateEmail(emailText: String): Boolean {
+        val emailPattern = Pattern.compile("^[\\w.-]+@[\\w\\d.-]+\\.[\\w]{2,}$")
+        val matcher = emailPattern.matcher(emailText)
+        val isCorrect = matcher.matches()
+        if (isCorrect) {
+            email.error = null
+        } else {
+            email.error = "Enter Correct Email.."
+        }
+        return isCorrect
     }
+
+
 
     private fun validateNumber(num: String) : Boolean {
         val isCorrect : Boolean
@@ -77,6 +84,7 @@ class MainActivity : AppCompatActivity() {
         }
         else{
             isCorrect = true
+            number.error = null
         }
         return isCorrect
     }

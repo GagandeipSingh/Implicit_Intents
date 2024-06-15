@@ -37,24 +37,47 @@ class MainActivity : AppCompatActivity() {
         sendsms = findViewById(R.id.sendsms)
 
         sendmail.setOnClickListener {
-            val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
-                data = Uri.parse("mailto:${email.text}")
-                putExtra(Intent.EXTRA_SUBJECT, subject.text.toString())
-                putExtra(Intent.EXTRA_TEXT, emailbody.text.toString())
-            }
-            if (emailIntent.resolveActivity(packageManager) != null) {
-                startActivity(emailIntent)
+            if(validateEmail(email.toString().trim())){
+                val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+                    data = Uri.parse("mailto:")
+                    intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email.text.toString().trim()))
+                    putExtra(Intent.EXTRA_SUBJECT, subject.text.toString())
+                    putExtra(Intent.EXTRA_TEXT, emailbody.text.toString())
+                }
+                if (emailIntent.resolveActivity(packageManager) != null) {
+                    startActivity(emailIntent)
+                }
             }
         }
 
         sendsms.setOnClickListener {
-            val smsIntent = Intent(Intent.ACTION_SENDTO).apply {
-                data = Uri.parse("smsto:${number.text}")
-                putExtra("sms_body", smsbody.text.toString())
+            if(validateNumber(number.text.toString().trim())){
+                val smsIntent = Intent(Intent.ACTION_SENDTO).apply {
+                    data = Uri.parse("smsto:${number.text.toString().trim()}")
+                    putExtra("sms_body", smsbody.text.toString())
+                }
+                if (smsIntent.resolveActivity(packageManager) != null) {
+                    startActivity(smsIntent)
+                }
             }
-            if (smsIntent.resolveActivity(packageManager) != null) {
-                startActivity(smsIntent)
-            }
+
         }
+    }
+
+    private fun validateEmail(emailText: String) :Boolean{
+        val emailRegex = "^[A-Za-z](.*)(@)(.+)(\\.)(.+)"
+        return emailText.matches(emailRegex.toRegex())
+    }
+
+    private fun validateNumber(num: String) : Boolean {
+        val isCorrect : Boolean
+        if(num.length < 10){
+            isCorrect = false
+            number.error = "Number should of 10 digits"
+        }
+        else{
+            isCorrect = true
+        }
+        return isCorrect
     }
 }

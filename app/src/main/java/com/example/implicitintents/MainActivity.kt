@@ -9,7 +9,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import java.util.regex.Pattern
 
 class MainActivity : AppCompatActivity() {
     private lateinit var email : EditText
@@ -38,12 +37,12 @@ class MainActivity : AppCompatActivity() {
         sendsms = findViewById(R.id.sendsms)
 
         sendmail.setOnClickListener {
-            if(validateEmail(email.toString().trim())){
+            if(validateEmail(email.text.toString().trim())){
                 val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
                     data = Uri.parse("mailto:")
-                    intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email.text.toString().trim()))
-                    putExtra(Intent.EXTRA_SUBJECT, subject.text.toString())
-                    putExtra(Intent.EXTRA_TEXT, emailbody.text.toString())
+                    putExtra(Intent.EXTRA_EMAIL,arrayOf(email.text.toString()))
+                    putExtra("subject", subject.text.toString())
+                    putExtra("body", emailbody.text.toString())
                 }
                     startActivity(emailIntent)
             }
@@ -63,9 +62,8 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun validateEmail(emailText: String): Boolean {
-        val emailPattern = Pattern.compile("^[\\w.-]+@[\\w\\d.-]+\\.[\\w]{2,}$")
-        val matcher = emailPattern.matcher(emailText)
-        val isCorrect = matcher.matches()
+        val emailRegex = Regex("^[\\w.-]+@[\\w.-]+\\.\\w{2,}$")
+        val isCorrect = emailText.matches(emailRegex)
         if (isCorrect) {
             email.error = null
         } else {
@@ -76,11 +74,12 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
     private fun validateNumber(num: String) : Boolean {
         val isCorrect : Boolean
         if(num.length < 10){
             isCorrect = false
-            number.error = "Number should of 10 digits"
+            number.error = "Number should be of 10 digits"
         }
         else{
             isCorrect = true

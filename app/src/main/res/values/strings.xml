@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Implicit Intents</string>
+    <string name="body">Body</string>
+    <string name="email_id">Email ID</string>
+    <string name="subject">Subject</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="send_email">Send Email</string>
+    <string name="send_sms">Send SMS</string>
+    <string name="sms_body">SMS Body</string>
 </resources>

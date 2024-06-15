@@ -5,20 +5,23 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:autofillHints=""
     android:paddingTop="50dp"
-    android:paddingStart="20dp"
+    android:paddingHorizontal="20dp"
     tools:context=".MainActivity">
 
     <EditText
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
         android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="60dp"
+        android:autofillHints=""
         android:ems="10"
-        android:hint="Email ID"
-        android:inputType="text"
+        android:hint="@string/email_id"
+        android:inputType="textEmailAddress"
         android:minHeight="48dp"
+        android:textColorHint="#546E7A"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,11 +29,13 @@
         android:id="@+id/subject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:layout_margin="20dp"
+        android:ems="10"
+        android:autofillHints=""
+        android:hint="@string/subject"
         android:inputType="text"
         android:minHeight="48dp"
-        android:hint="Subject"
+        android:textColorHint="#546E7A"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
@@ -38,11 +43,13 @@
         android:id="@+id/body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:autofillHints=""
         android:ems="10"
+        android:hint="@string/body"
         android:inputType="textMultiLine"
         android:minHeight="48dp"
-        android:layout_margin="20dp"
-        android:hint="Body"
+        android:textColorHint="#546E7A"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/subject" />
 
@@ -50,7 +57,8 @@
         android:id="@+id/sendmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send Email"
+        android:autofillHints=""
+        android:text="@string/send_email"
         android:layout_margin="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/body" />
@@ -59,11 +67,14 @@
         android:id="@+id/number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:layout_margin="20dp"
-        android:inputType="text"
+        android:ems="10"
+        android:autofillHints=""
+        android:hint="@string/phone_number"
+        android:inputType="number"
+        android:maxLength="10"
         android:minHeight="48dp"
-        android:hint="Phone Number"
+        android:textColorHint="#546E7A"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sendmail" />
 
@@ -71,12 +82,14 @@
         android:id="@+id/smsbody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:layout_marginStart="4dp"
         android:ems="10"
-        android:layout_margin="20dp"
+        android:autofillHints=""
+        android:hint="@string/sms_body"
         android:inputType="textMultiLine"
         android:minHeight="48dp"
-        android:hint="SMS Body"
+        android:textColorHint="#546E7A"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/number" />
 
@@ -84,7 +97,7 @@
         android:id="@+id/sendsms"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send SMS"
+        android:text="@string/send_sms"
         android:layout_margin="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/smsbody" />
